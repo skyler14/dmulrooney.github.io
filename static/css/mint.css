@@ -678,3 +678,10 @@ body {
   transform: translateX(0px);
   max-height: 100vh;
 }
+
+
+@media (max-width: 600px) {
+  .mobileHide {
+  display: none;
+  }
+}
