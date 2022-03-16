@@ -119,63 +119,75 @@ $('.acc__title').click(function(j) {
 });
 });
 
-
+function enable() {
+  try {
+      document.getElementsByClassName("mint")[0].disabled = false;
+      document.getElementsByClassName("mint")[0].style.backgroundColor = "white";
+  } catch(e) {
+      console.log(".");
+  }
+}
       function countDownTimer(date) {
       var elem = $('#countDown');
 
       //$( "p" ).add( "div" ).addClass( "widget" );
       var futureTime = new Date(date).getTime();
-
+        counting = true;
       main = setInterval(function() { 
-        // Time left between future and current time in Seconds
-        var timeLeft = Math.floor( (futureTime - new Date().getTime()) / 1000 );
-        // console.log(timeLeft);
-        
-        // Days left = time left / Seconds per Day 
-        var days =  Math.floor(timeLeft / 86400);
-        // console.log(days);
-        
-        // 86400 seconds per Day
-        timeLeft -= days * 86400;
-
-        // console.log(timeLeft);
-        
-        // Hours left = time left / Seconds per Hour
-        var hours = Math.floor(timeLeft / 3600) % 24;
-        // console.log(hours);
-        var mh = hours
-
-        // 3600 seconds per Hour
-        timeLeft -= hours * 3600;
-        // console.log(timeLeft);
-        
-        // Minutes left = time left / Minutes per Hour
-        var min = Math.floor(timeLeft / 60) % 60;
-        var max = min;
-
-        // console.log(min);
-        
-        // 60 seconds per minute
-        timeLeft -= min * 60;
-        // console.log(timeLeft);
-        
-        // Seconds Left
-        var sec = timeLeft % 60;
-        // Combined DAYS+HOURS+MIN+SEC
-        if (mh > 7) {
-          elem.html("Minting is live, ends tomorrow at 12 PM CST!");
-        } else {
-          var timeString = "Pre-Sale begins in "+
-                          "<span class='hours'>"+hours+" hours "+"</span>"+
-                          "<span class='minutes'>"+min+" minutes "+"</span>"+
-                          "<span class='seconds'>"+sec+" seconds "+"</span>";
+        if (counting) {
+            // Time left between future and current time in Seconds
+            var timeLeft = Math.floor( (futureTime - new Date().getTime()) / 1000 );
+            // console.log(timeLeft);
             
-          elem.html(timeString);
+            // Days left = time left / Seconds per Day 
+            var days =  Math.floor(timeLeft / 86400);
+            // console.log(days);
+            
+            // 86400 seconds per Day
+            timeLeft -= days * 86400;
+
+            // console.log(timeLeft);
+            
+            // Hours left = time left / Seconds per Hour
+            var hours = Math.floor(timeLeft / 3600) % 24;
+            // console.log(hours);
+            var mh = hours
+
+            // 3600 seconds per Hour
+            timeLeft -= hours * 3600;
+            // console.log(timeLeft);
+            
+            // Minutes left = time left / Minutes per Hour
+            var min = Math.floor(timeLeft / 60) % 60;
+            var max = min;
+
+            // console.log(min);
+            
+            // 60 seconds per minute
+            timeLeft -= min * 60;
+            // console.log(timeLeft);
+            
+            // Seconds Left
+            var sec = timeLeft % 60;
+            // Combined DAYS+HOURS+MIN+SEC
+            if (mh > 2) {
+              elem.html("Minting is live, ends tomorrow at 12 PM CST!");
+              console.log("Minting live");
+              counting = false;
+              enable()
+              setInterval(enable, 300);
+            } else {
+              var timeString = "Pre-Sale begins in "+
+                              "<span class='hours'>"+hours+" hours "+"</span>"+
+                              "<span class='minutes'>"+min+" minutes "+"</span>"+
+                              "<span class='seconds'>"+sec+" seconds "+"</span>";
+                
+              elem.html(timeString);
+            }
         }
-        
-      }, 1000);
+          }, 1000);
       }
 
       document.addEventListener('DOMContentLoaded', function() {
-        countDownTimer('March 16, 2021 12:00:00-05:00');
+        countDownTimer('March 16, 2021 10:28:00');
       }, false);
